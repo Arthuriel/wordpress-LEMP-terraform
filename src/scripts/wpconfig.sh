@@ -1,13 +1,13 @@
 #!/bin/bash
 sudo su
 apt update
-apt upgrade
-apt install nginx
-ufw enable 
-ufw allow 'Nginx HTTP'
-apt install mysql-server
+apt upgrade -y
+apt install nginx -y
+# ufw enable 
+# ufw allow 'Nginx HTTP'
+apt install mysql-server -y
 add-apt-repository universe
-apt install php-fpm php-mysql
+apt install php-fpm php-mysql -y
 cd /var/www
 curl -LO https://wordpress.org/latest.tar.gz
 tar xzvf latest.tar.gz
@@ -37,16 +37,17 @@ echo "                deny all;" >> wordpress
 echo "        }" >> wordpress
 echo "}" >> wordpress
 #change port in default file
-sed 's/listen 80/listen 8080/' /etc/nginx/sites-available/default
-sed 's/listen [::]:80/listen [::]:8080/' /etc/nginx/sites-available/default
-sed 's/listen 80/listen 8080/' /etc/nginx/sites-enabled/default
-sed 's/listen [::]:80/listen [::]:8080/' /etc/nginx/sites-enabled/default
+sed "s/listen 80 default_server;/listen 8080 default_server;/" /etc/nginx/sites-available/default -i
+sed "s/listen [::]:80 default_server;/listen [::]:8080 default_server;/" /etc/nginx/sites-available/default -i
+sed "s/listen 80 default_server;/listen 8080 default_server;/" /etc/nginx/sites-enabled/default -i
+sed "s/listen [::]:80 default_server;/listen [::]:8080 default_server;/" /etc/nginx/sites-enabled/default -i
 #create symbolic link from wordpress file
 sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+service nginx enable
 service nginx restart
-cp wp-config-sample.php $PWD/wp-config.php
-sed 's/database_name_here/wordpress/' /var/www/wordpress/wp-config.php
-sed 's/username_here/wordpress/' /var/www/wordpress/wp-config.php
-sed 's/password_here/wordpresskey1234/' /var/www/wordpress/wp-config.php
-sed 's/localhost/10.0.0.5/' /var/www/wordpress/wp-config.php
+cp /var/www/wordpress/wp-config-sample.php /var/www/wordpress/wp-config.php
+sed "s/database_name_here/wordpress/" /var/www/wordpress/wp-config.php -i
+sed "s/username_here/wordpress/" /var/www/wordpress/wp-config.php -i
+sed "s/password_here/wordpresskey1234/" /var/www/wordpress/wp-config.php -i
+sed "s/localhost/10.0.3.4/" /var/www/wordpress/wp-config.php -i
 #how to change ip in wp-config.php to dynamic?

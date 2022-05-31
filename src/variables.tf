@@ -3,12 +3,12 @@ variable "admin_username" {
   default     = "devops"
 }
 
-variable "admin_password" {
-  description = "Default password for admin account"
-  default     = ""
-}
+# variable "admin_password" {
+#   description = "Default password for admin account"
+#   default     = ""
+# }
 
 variable "subscription_id" {
-   type    = string
-   default = "c2679671-4c32-4129-8310-1a49f35393a1"
- }
+  type    = string
+  default = "e4698f64-76c2-45f6-8e37-3582776fd222"
+}

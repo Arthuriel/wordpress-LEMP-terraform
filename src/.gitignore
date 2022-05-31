@@ -1,0 +1,6 @@
+terraform.tfstate.backup
+terraform.tfstate
+plan
+.terraform
+ssh.tf
+.terraform.lock.hcl

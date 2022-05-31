@@ -14,6 +14,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "wordpress" {
-  name     = "POC-DANIEL"
+  name     = "POC-DESAFIO"
   location = "eastus2"
 }
