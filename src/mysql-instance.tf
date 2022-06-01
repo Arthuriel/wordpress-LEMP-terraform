@@ -38,7 +38,7 @@ resource "azurerm_network_security_group" "mysql" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3306"
-    source_address_prefix      = "10.0.2.0/24"
+    source_address_prefix      = "10.0.2.0/24" #open to wp-instance private IP
     destination_address_prefix = "*"
   }
 
@@ -50,7 +50,7 @@ resource "azurerm_network_security_group" "mysql" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
-    source_address_prefix      = "*"
+    source_address_prefix      = "189.100.69.161" #my local machine public ip
     destination_address_prefix = "*"
   }
 }
